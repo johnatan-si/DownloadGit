@@ -13,17 +13,18 @@ public class Download {
 	public static void main(String[] args) throws Exception {
 
 		GitServiceImpl s = new GitServiceImpl();
-
+		// deve informar o diretorio para salvar os projetos
 		String baseFolder = "C:\\temp\\e-commerce";
-		
-		Github github = new RtGithub("communications227@gmail.com", "_a1234567890");
+		// deve informar o usuário e senha do git
+		Github github = new RtGithub("", "");
 
 		Request request;
 		JsonArray items;
 		int cont = 1;
 		int numRepository = 0;
 		int page = 1;
-
+		
+		//deve configurar a string debusca de acordo com as necessidades do usuario
 		request = github.entry().uri().path("/search/repositories")
 				.queryParam("q", "language:java e-commerce size:>1000")
 				.queryParam("sort", "stars")
@@ -66,14 +67,14 @@ public class Download {
 				
 				cont++;
 			}
-			//page++;
+			// deve ser consistente com a string anterior,para continuar fazendo o download
 
-			request = github.entry().uri().path("/search/repositories")
+			request = request;/*github.entry().uri().path("/search/repositories")
 					.queryParam("q", "language:Java accounting size:>1000")
 					.queryParam("sort", "stars")
 					.queryParam("per_page", "100")
 					.queryParam("page", String.valueOf(page))
-					.back().method(Request.GET);
+					.back().method(Request.GET);*/
 			
 			items = request.fetch().as(JsonResponse.class).json().readObject().getJsonArray("items");
 			
